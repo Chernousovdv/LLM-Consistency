@@ -26,6 +26,10 @@ Abstract
 
 Modern AI assistants, particularly in banking risk assessment, require personalized and context-aware interactions. However, they often lack effective memory mechanisms for recalling and utilizing past interactions, leading to impersonalized responses. This research develops a hybrid memory system that integrates short-term and long-term memory to improve personalization while maintaining computational efficiency. The proposed system combines short-term memory for preserving recent interactions and long-term memory for accumulating knowledge. Knowledge graphs (AriGraph) structure semantic and episodic memory, while an intelligent memory selection mechanism dynamically adjusts storage strategies based on interaction complexity and computational constraints. Additionally, triplets and subgraphs from the knowledge graph are transformed into structured memory storage for efficient retrieval and response generation
 
+Link Review
+===============================
+https://docs.google.com/document/d/1h7oPyyCVAQ_HOuKJVMfrfr0woq83kxSi1J2lcGdhX9I/edit?tab=t.0
+
 Research publications
 ===============================
 1. TODO
