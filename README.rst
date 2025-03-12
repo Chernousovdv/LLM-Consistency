@@ -15,7 +15,7 @@
 
 .. class:: center
 
-    :Название исследуемой задачи: Hybrid Memory System for Personalized AI Agent Responses Using Knowledge Graphs
+    :Название исследуемой задачи: Personality as Vector Space for Agent-Based Simulation
     :Тип научной работы: M1P
     :Автор: Данила Черноусов
     :Консультант: Иван Новиков
@@ -24,7 +24,7 @@
 Abstract
 ========
 
-Modern AI assistants, particularly in banking risk assessment, require personalized and context-aware interactions. However, they often lack effective memory mechanisms for recalling and utilizing past interactions, leading to impersonalized responses. This research develops a hybrid memory system that integrates short-term and long-term memory to improve personalization while maintaining computational efficiency. The proposed system combines short-term memory for preserving recent interactions and long-term memory for accumulating knowledge. Knowledge graphs (AriGraph) structure semantic and episodic memory, while an intelligent memory selection mechanism dynamically adjusts storage strategies based on interaction complexity and computational constraints. Additionally, triplets and subgraphs from the knowledge graph are transformed into structured memory storage for efficient retrieval and response generation
+This research conceptualizes an agent's personality as a point in a vector space, where each dimension represents a distinct trait or behavioral tendency. This approach allows for selecting an appropriate subspace tailored to specific tasks while disregarding irrelevant traits. The Big Five personality framework, often considered a basis set for human personality, serves as a reference point for our model. Expanding on this idea, we propose a more generalized method for profiling agents by combining orthogonal traits to generate diverse populations. Furthermore, incorporating a probability distribution can better mimic real-world personality variations. LLMs have demonstrated the ability to maintain consistent personalities, but it remains uncertain whether this consistency persists under alternative personality frameworks.
 
 Link Review
 ===============================
