@@ -26,6 +26,10 @@ Abstract
 
 This research conceptualizes an agent's personality as a point in a vector space, where each dimension represents a distinct trait or behavioral tendency. This approach allows for selecting an appropriate subspace tailored to specific tasks while disregarding irrelevant traits. The Big Five personality framework, often considered a basis set for human personality, serves as a reference point for our model. Expanding on this idea, we propose a more generalized method for profiling agents by combining orthogonal traits to generate diverse populations. Furthermore, incorporating a probability distribution can better mimic real-world personality variations. LLMs have demonstrated the ability to maintain consistent personalities, but it remains uncertain whether this consistency persists under alternative personality frameworks.
 
+.. image:: paper/diagram.pdf
+  :width: 400
+  :alt: Alternative text
+
 Link Review
 ===============================
 https://docs.google.com/document/d/1h7oPyyCVAQ_HOuKJVMfrfr0woq83kxSi1J2lcGdhX9I/edit?tab=t.0
