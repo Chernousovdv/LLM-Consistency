@@ -15,7 +15,7 @@
 
 .. class:: center
 
-    :Название исследуемой задачи: Personality as Vector Space for Agent-Based Simulation
+    :Название исследуемой задачи: Can LLMs be consistent in personality scoring
     :Тип научной работы: M1P
     :Автор: Данила Черноусов
     :Консультант: Иван Новиков
