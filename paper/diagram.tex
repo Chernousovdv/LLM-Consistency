@@ -1,0 +1,57 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows.meta, positioning, fit}
+\usepackage{graphicx}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=1cm,  % Reduced general spacing
+    box/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=1cm, align=center},
+    agent/.style={box, trapezium, trapezium left angle=70, trapezium right angle=110},
+    arrow/.style={-Stealth, thick},
+    trait/.style={circle, draw=red, fill=red!20, thick, minimum size=0.7cm, font=\small}
+]
+
+% Personality Trait Labels
+\node[] (label1) at (-2,0) {Openness};
+\node[] (label2) at (-2,-1.6) {Extraversion};
+\node[] (label3) at (-2,-3.2) {Agreeableness};
+
+% Enclosing box for trait labels
+\node[draw, rounded corners, inner sep=0.1cm, fit=(label1) (label3), label=above:Traits] (traitbox) {};
+
+% Personality Scores (vertical circles)
+\node[trait] (trait1) at (0,0) {4};
+\node[trait, below=0.8cm of trait1] (trait2) {3};
+\node[trait, below=0.8cm of trait2] (trait3) {5};
+
+% Enclosing box for scores
+\node[draw, rounded corners, inner sep=0.2cm, fit=(trait1) (trait3), label=above:Scores] (scores) {};
+
+% Rest of the nodes with tighter spacing
+\node[agent, right=1.5cm of scores] (agent1) {\includegraphics[height=0.5cm]{openai.jpeg}\\Agent 1};
+\node[box, right=1.5cm of agent1] (text) {Text\\Description};
+\node[agent, right=1.5cm of text] (agent2) {\includegraphics[height=0.5cm]{openai.jpeg}\\Agent 2};
+
+% Generated Scores - positioned with shorter distance
+\node[trait, right=1.5cm of agent2] (gen1) {4.2};
+\node[trait, below=0.8cm of gen1] (gen2) {2.8};
+\node[trait, above=0.8cm of gen1] (gen3) {4.9};
+\node[draw, rounded corners, inner sep=0.2cm, fit=(gen2) (gen3), label=above:Generated Scores] (generated) {};
+
+\node[box, below=1.5cm of text] (cosine) {Cosine\\Similarity};
+
+% Shorter main flow arrows
+\draw[arrow] (scores.east) -- (agent1.west);
+\draw[arrow] (agent1) -- (text);
+\draw[arrow] (text) -- (agent2);
+\draw[arrow] (agent2) -- (generated.west);
+
+% Comparison arrows
+\draw[arrow] (scores.south) -- (cosine.west);
+\draw[arrow] (generated.south) -- (cosine.east);
+
+% Labels
+
+\end{tikzpicture}
+\end{document}
