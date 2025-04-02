@@ -1,35 +1,16 @@
 # LLM Personality Consistency Experiment
 
-A research project investigating the consistency of Large Language Models (LLMs) in describing and scoring personality traits.
-
-![Experiment Workflow](https://via.placeholder.com/800x400.png?text=Experiment+Workflow+Diagram)  
-<sup>*Replace with an actual diagram if available*</sup>
-
 ---
 
-## 📌 Table of Contents
-- [🚀 Setup Instructions](#-setup-instructions)
-- [🔑 API Key Configuration](#-api-key-configuration)
-- [⚡ Running Experiments](#-running-experiments)
-- [💾 Data Storage Format](#-data-storage-format)
-- [🧠 Code Structure](#-code-structure)
-- [🔧 Troubleshooting](#-troubleshooting)
-- [🚀 Extending the Project](#-extending-the-project)
-- [📊 Example Analysis](#-example-analysis)
-- [📝 License](#-license)
-- [🙏 Acknowledgments](#-acknowledgments)
+## Setup Instructions
 
----
-
-## 🚀 Setup Instructions
-
-### 📥 Clone the Repository
+### Clone the Repository
 ```bash
 git clone https://github.com/yourusername/llm-personality-consistency.git
 cd llm-personality-consistency
 ```
 
-### 📦 Install Dependencies
+### Install Dependencies
 ```bash
 # Create a virtual environment
 python -m venv venv
@@ -44,7 +25,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🔑 API Key Configuration
+## API Key Configuration
 1. **Obtain an API Key** from Deepseek Console.
 2. **Create a `.env` file** in the project root:
    ```bash
@@ -57,9 +38,9 @@ pip install -r requirements.txt
 
 ---
 
-## ⚡ Running Experiments
+## Running Experiments
 
-### ▶️ Basic Execution
+### Basic Execution
 ```python
 from src.experiment import run_experiment
 
@@ -74,7 +55,7 @@ results = run_experiment(
 )
 ```
 
-### 🔧 Advanced Parameters
+### Advanced Parameters
 ```python
 run_experiment(
     ...,  
@@ -87,7 +68,7 @@ run_experiment(
 
 ---
 
-## 💾 Data Storage Format
+## Data Storage Format
 
 Experiment results are stored in **JSON Lines format (`.jsonl`)**, where each line represents a trial:
 ```json
@@ -109,46 +90,6 @@ Experiment results are stored in **JSON Lines format (`.jsonl`)**, where each li
 
 ---
 
-## 🧠 Code Structure
-```
-llm-personality-consistency/
-├── config/               # Configuration management
-│   ├── __init__.py
-│   ├── api_config.py     # API endpoints and credentials
-│   └── settings.py       # Default experiment parameters
-├── src/                  # Core functionality
-│   ├── experiment.py     # Main experiment logic
-│   ├── llm_integration.py # API communication layer
-│   ├── data_processing.py # Text parsing/cleaning
-│   └── utils.py          # Helper functions
-├── scripts/              # Execution entry points
-│   └── run_experiment.py # Example experiment script
-├── results/              # Generated output files
-│   └── main_study.jsonl  # Example results file
-├── tests/                # Unit tests
-│   ├── test_experiment.py
-│   └── test_parsing.py
-└── requirements.txt      # Python dependencies
-```
-
----
-
-## 🔧 Troubleshooting
-| Symptom | Solution |
-|---------|----------|
-| **API Key Not Found** | Verify `.env` file exists in project root |
-| **JSON Parsing Errors** | Check LLM response formatting |
-| **Network Errors** | Verify API endpoint in `api_config.py` |
-| **Permission Denied** | Ensure write access to output directory |
-
-### 🛠 Debugging Tips
-```python
-# Enable debug logging
-import logging
-logging.basicConfig(level=logging.DEBUG)
-```
-
----
 
 ## 🚀 Extending the Project
 
@@ -168,36 +109,3 @@ def _calculate_metrics(self, llm_scores):
 ```
 
 ---
-
-## 📊 Example Analysis
-```python
-import json
-import pandas as pd
-
-# Load results
-with open("results/main_study.jsonl") as f:
-    data = [json.loads(line) for line in f]
-
-# Create DataFrame
-analysis_df = pd.DataFrame({
-    'trial_id': [d['trial_id'] for d in data],
-    'mae': [d['metrics']['mae'] for d in data],
-    'correlation': [d['metrics']['correlation'] for d in data],
-    'description_length': [len(d['description']) for d in data]
-})
-
-print(analysis_df.describe())
-```
-
----
-
-## 📝 License
-This project is licensed under the **MIT License**. See the `LICENSE` file for details.
-
----
-
-## 🙏 Acknowledgments
-- Deepseek API team
-- Big Five personality model researchers
-- Open-source community contributors
-
