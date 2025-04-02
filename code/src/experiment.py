@@ -1,5 +1,7 @@
 import uuid
 import numpy as np
+import json
+import re
 from scipy.stats import pearsonr
 from typing import Dict, List, Tuple
 from src.llm_integration import LLMClient
@@ -26,13 +28,49 @@ class PersonalityExperiment:
 
         return self._calculate_metrics(llm_scores)
 
-    def _generate_description_prompt(self) -> str:
-        # Prompt generation logic
-        pass
+    def generate_prompt(self) -> str:
+        """Generate prompt for personality description generation."""
+        traits_str = (
+            ", ".join(self.traits[:-1]) + f", and {self.traits[-1]}"
+            if len(self.traits) > 1
+            else self.traits[0]
+        )
+
+        prompt = (
+            f"Describe a fictional person's personality and behavior in vivid detail. "
+            f"Focus on showing (not telling) their levels of {traits_str} through:\n"
+            f"- Specific actions they would take\n- Typical dialogue examples\n- Reactions to scenarios\n"
+            f"Avoid numerical ratings or direct trait mentions. Use implicit characterization."
+        )
+        return prompt
 
     def _parse_scores(self, response: str) -> Dict[str, float]:
-        # Score parsing logic
-        pass
+        """Parse and validate scores from LLM response"""
+        try:
+            # Attempt JSON parsing first
+            scores = json.loads(response)
+        except json.JSONDecodeError:
+            # Fallback to regex extraction
+            scores = {}
+            for trait in self.traits:
+                # Match patterns like "Openness: 0.85" or "'neuroticism': 0.4"
+                match = re.search(
+                    rf"""({re.escape(trait)}['"]?\s*[:=]\s*)(\d*\.?\d+)""", 
+                    response,
+                    re.IGNORECASE
+                )
+                if match:
+                    scores[trait] = float(match.group(2))
+
+        # Validate all traits are present and within range
+        for trait in self.traits:
+            score = scores.get(trait)
+            if score is None:
+                raise ValueError(f"Missing score for trait: {trait}")
+            if not 0 <= score <= 1:
+                raise ValueError(f"Invalid score {score} for {trait}. Must be 0-1")
+
+        return scores
 
     def _calculate_metrics(self, llm_scores: Dict) -> Dict:
         true_values = [self.true_scores[t] for t in self.traits]

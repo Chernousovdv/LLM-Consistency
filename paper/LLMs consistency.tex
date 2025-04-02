@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+
+% More detailed margin control
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+
+% Essential packages
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{lmodern}
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algpseudocode}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows.meta, positioning, fit}
+\usepackage{amsthm}
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+
+
+% Compatibility for biblatex
+\usepackage{csquotes}
+
+% Load biblatex before cleveref
+\usepackage{biblatex}
+\addbibresource{draft_lib.bib}
+
+\usepackage{cleveref}
+
+% Define custom commands if not already defined
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+
+% Theorem environments
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+% Comments for co-authors (optional)
+\newcommand{\coauthorcomment}[2]{{\color{#1} \textbf{#2}}}
+
+\usepackage{xspace}
+\newcommand{\algname}[1]{{\sf  #1}\xspace}
+\newcommand{\algnamex}[1]{{\sf #1}\xspace}
+
+% Title and author information
+\title{LLMs Consistency in Describing and Scoring Personality}
+
+\author{
+  Danila Chernousov\\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In this paper, we propose a novel approach for evaluating Large Language Models' ability to be profiled with a simple prompt containing a set of scores along several personality dimensions. We assess LLM consistency in both describing and scoring personality traits through a two-stage, cross-session experiment. We show that when asked explicitly, LLMs are able to convert numerical scores to text and back. Our framework evaluates LLM consistency not only on well-established traits (e.g., Big Five) but also on understudied or synthetic trait combinations, probing their robustness in novel psychological subspaces. We find that LLMs exhibit higher consistency for widely studied traits (e.g., Big Five) compared to under-researched or ambiguous constructs, suggesting a dependency on training data priors.
+\end{abstract}
+
+\paragraph{Keywords:} AI Agents, Large Language Model, Agent-Based Simulation, Agent Profiling, LLM consistency.
+
+\section{Introduction}
+The ability to profile artificial agents with stable, interpretable personality traits represents a critical challenge in developing human-centered AI systems. Personality can be conceptualized as a point in a multidimensional vector space, providing a framework for agents to exhibit coherent behaviors and adapt interactions to user preferences. While psychological research has traditionally employed trait frameworks like the Big Five Inventory (openness, conscientiousness, extraversion, agreeableness, neuroticism) as basis vectors, this convention raises important questions when applied to modern Large Language Models (LLMs). These models are trained on vast corpora containing established psychological theories.
+
+Existing research has predominantly evaluated LLM consistency through psychological questionnaires and established trait frameworks. While valuable, these approaches inherently tie assessments to human-centric constructs, potentially biasing evaluations toward traits with strong lexical or research priors. Our work introduces a novel methodology that decouples personality evaluation from pre-existing instruments, instead testing LLMs' \emph{intrinsic} capacity to model traits as abstract, composable dimensions.
+
+\noindent Our approach establishes personality profiling as a bidirectional task:
+\begin{itemize}
+    \item \textbf{Trait-to-Text:} Generating textual descriptions that implicitly encode predefined personality scores
+    \item \textbf{Text-to-Trait:} Reconstructing original scores from generated descriptions in isolation
+\end{itemize}
+
+This framework requires no questionnaires, labeled data, or alignment with legacy psychological models. It enables testing of arbitrary trait combinations—whether aligned with traditional frameworks or novel constructs (e.g., ``stoicism'' or ``curiosity'')—while avoiding assumptions about LLMs' internal representations. This flexibility is crucial given that LLMs' training data embeds diverse, often conflicting personality theories that may not conform to rigid psychological conventions.
+
+
+
+Our framework's data-free nature makes it particularly valuable for auditing model robustness and identifying biases without requiring external validation. All of the code used can be found at the github page. \footnote{https://github.com/Chernousovdv/Personalized-AI-Agent}
+
+
+\section{Problem Statement}
+
+\begin{figure}[htbp]
+  \centering
+  \input{diagram.tex} % Path to your .tex file
+  \caption{Experiment pipeline. We prompt Agent1 to generate text description. Agent2 generates scores based on the text description without seeing original scores}
+  \label{fig:personality}
+\end{figure}
+
+The problem can be formulated as follows:
+
+\begin{center}
+    \textbf{Can LLMs be consistent in personality scoring?}
+\end{center}
+
+To explain this idea further we will use mathematical notation
+
+Let $\mathbf{p} \in \mathcal{P} \subset \mathbb{R}^n$ represent a personality trait vector in an $n$-dimensional space, and $\mathcal{D}$ denote the space of textual descriptions. We consider two mappings:
+
+\begin{equation}
+    f: \mathcal{P} \to \mathcal{D}, \quad f(\mathbf{p}) = \mathbf{d} \quad \text{(trait-to-text encoding)}
+\end{equation}
+
+\begin{equation}
+    g: \mathcal{D} \to \mathcal{P}, \quad g(\mathbf{d}) = \mathbf{p'} \quad \text{(text-to-trait decoding)}
+\end{equation}
+
+The core problem is to evaluate whether the composition $g \circ f$ preserves personality vectors with minimal distortion:
+\begin{equation}
+    \|\mathbf{p} - g(f(\mathbf{p}))\| < \epsilon \quad \forall \mathbf{p} \in \mathcal{P},
+\end{equation}
+where $\epsilon$ is an acceptable error threshold. Specifically:
+
+\begin{itemize}
+    \item Do LLMs implement $f$ and $g$ such that reconstructed vectors $\mathbf{p'}$ remain $\epsilon$-close to originals $\mathbf{p}$?
+    \item Does the error $\|\mathbf{p} - \mathbf{p'}\|$ increase for subspaces $\mathcal{S} \subset \mathcal{P}$ with limited training data coverage?
+\end{itemize}
+
+This quantifies whether LLMs can reliably serve as lossless translators between numeric personality representations and their textual embeddings - a fundamental requirement for stable AI agent design.
+
+\section{Theory}
+
+We use the following algorithm for each set of traits. The traits we chose are discussed in the next section
+
+
+
+\begin{algorithm}[H]
+\caption{LLM Personality Consistency Evaluation}
+\KwIn{Personality traits $\mathcal{T}$, True scores $S_{true}$, Number of trials $N$}
+\KwOut{Consistency metrics $M$}
+
+\SetAlgoLined
+\DontPrintSemicolon
+
+
+\For{$i \gets 1$ \textbf{to} $N$}{
+    $D_i \gets \Call{GenerateDescription}{\mathcal{T}, S_{true}}$\;
+    
+    $S_{recon} \gets \Call{ExtractScores}{D_i, \mathcal{T}}$\;
+    
+    \For{$\tau \in \mathcal{T}$}{
+        $M_i[\tau] \gets |S_{true}[\tau] - S_{recon}[\tau]|$\;
+    }
+    $\Call{UpdateMetrics}{M, M_i}$\;
+}
+
+$M_{mae} \gets \Call{MeanAbsoluteError}{M}$\;
+$M_{corr} \gets \Call{CosineSimilarity}{M}$\;
+
+\Return $M_{mae}, M_{corr}$\;
+
+
+\end{algorithm}
+
+
+\section{Experiment}
+
+
+
+
+TODO experiment
+
+
+
+\section{Results}
+TODO Results
+
+
+
+\appendix
+
+\section{Prompts} 
+TODO prompts
+
+\printbibliography
+    
+\end{document}
