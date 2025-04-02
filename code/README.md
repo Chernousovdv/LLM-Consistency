@@ -6,7 +6,7 @@
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/llm-personality-consistency.git
+git clone https://github.com/Chernousovdv/Personalized-AI-Agent.git
 cd llm-personality-consistency
 ```
 
@@ -16,8 +16,7 @@ cd llm-personality-consistency
 python -m venv venv
 
 # Activate the environment
-source venv/bin/activate  # Linux/MacOS
-venv\Scripts\activate  # Windows
+source venv/bin/activate
 
 # Install required packages
 pip install -r requirements.txt
@@ -26,12 +25,13 @@ pip install -r requirements.txt
 ---
 
 ## API Key Configuration
+*(Keep this file private)*
 1. **Obtain an API Key** from Deepseek Console.
 2. **Create a `.env` file** in the project root:
    ```bash
    echo "DEEPSEEK_API_KEY=your_api_key_here" > .env
    ```
-3. **Keep this file private**
+
 
 ---
 
