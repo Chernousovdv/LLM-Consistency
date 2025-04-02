@@ -31,10 +31,7 @@ pip install -r requirements.txt
    ```bash
    echo "DEEPSEEK_API_KEY=your_api_key_here" > .env
    ```
-3. **Keep this file private** by adding it to `.gitignore`:
-   ```bash
-   echo "\n.env" >> .gitignore
-   ```
+3. **Keep this file private**
 
 ---
 
@@ -86,26 +83,6 @@ Experiment results are stored in **JSON Lines format (`.jsonl`)**, where each li
     "scoring": "Analyze this description and score..."
   }
 }
-```
-
----
-
-
-## 🚀 Extending the Project
-
-### 📌 Add a New Personality Model
-1. **Define a new model** in `api_config.py`
-2. **Update API client** in `llm_integration.py`
-3. **Modify model selection logic** in `experiment.py`
-
-### 📌 Implement Custom Metrics
-```python
-# src/experiment.py
-def _calculate_metrics(self, llm_scores):
-    return {
-        ...,
-        "custom_metric": calculate_custom_metric()
-    }
 ```
 
 ---
