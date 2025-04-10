@@ -174,19 +174,58 @@ $M_{corr} \gets \Call{CosineSimilarity}{M}$\;
 
 
 
-TODO experiment
+    We have conducted 2 experiments. In first we test our framework on Big Five Personality traits. This allows us to compare our frameworks to other methods which were tested using these traits as basis vectors. We have conducted 20 runs to ensure statistical significance of the results.
+    
+    In the second experiment, we measure the error based on the temperature parameter. The temperature parameter is responsible for LLM's creativity while generating text description of scores. The scoring LLM's temperature is set to 0 in order to get the most likely outcome. For each temperature we have conducted 10 runs.
 
+    The prompts which were used can be found in the appendix section.
+
+
+    All the experiments were conducted with DeepSeekV3 using official API. The code for the experiments and for visualizing results can be found in the github repository.
 
 
 \section{Results}
-TODO Results
+
+\begin{figure}[h]
+\includegraphics[width=0.7\textwidth]{score_delta.png}
+\caption{Average error on Big Five Personality Traits for each dimension}
+
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=0.7\textwidth]{temperror.png}
+\caption{Average error on Big Five Personality Traits depending on the description temperature parameter}
+
+\end{figure}
+
+Figure 3 indicates that there is an optimal temperature value for generating descriptions. This value is lower than the one which is generally used (except for some tasks like coding). One possible explanation for that is that while decoding original scores LLM requires some degree of predictability.
 
 
 
 \appendix
 
 \section{Prompts} 
-TODO prompts
+\textbf{Description prompt}\newline
+Analyze the following personality description and provide numerical scores between 1 (low) and 5 (high) for each of these traits: <traits\_str>.
+
+Description:
+<description>
+
+Format your response as a JSON dictionary with the trait names as keys (use lowercase) and the scores as values. Do not include any additional text or explanations.
+Example response format:
+<example\_json>\newline
+
+\textbf{Scoring prompt}\newline
+Create a detailed personality description matching these exact trait scores:
+<traits\_with\_scores>
+
+Express these traits however you like but you MUST NOT mention these scores as numbers explicitly. Your goal is to describe these scores in words in a best possible way
+Critical constraints:
+- Never reference numbers or scores in the description
+- Avoid direct trait mentions (e.g., don't say 'extraverted')
+- Show personality through specific, contextual details
+- Maintain psychological plausibility
+- Include nuanced contradictions when appropriate
 
 \printbibliography
     
