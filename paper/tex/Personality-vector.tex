@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{3d}
+
+\begin{document}
+\begin{tikzpicture}[
+    x={(1cm,0cm)}, 
+    y={(0cm,1cm)}, 
+    z={(0.7cm,0.3cm)}, % Adjust projection here
+    >=stealth,
+    thick]
+
+% Draw axes
+\draw[->, thin] (0,0,0) -- (6,0,0) node[right]{\scriptsize$x$};
+\draw[->, thin] (0,0,0) -- (0,5,0) node[above]{\scriptsize$y$};
+\draw[->, thin] (0,0,0) -- (0,0,6) node[below left]{\scriptsize$z$};
+
+% Draw vectors
+% Openness (x-axis)
+\draw[->, blue, line width=1.5pt] (0,0,0) -- (4,0,0) 
+    node[midway, below left]{\scriptsize Openness (4)};
+    
+% Extraversion (y-axis)
+\draw[->, red, line width=1.5pt] (0,0,0) -- (0,3,0)
+    node[midway, left]{\scriptsize Extraversion (3)};
+    
+% Agreeableness (z-axis)
+\draw[->, green!60!black, line width=1.5pt] (0,0,0) -- (0,0,5)
+    node[midway, above right]{\scriptsize Agreeableness (5)};
+    
+% Personality vector (sum)
+\draw[->, purple, line width=2pt] (0,0,0) -- (4,3,5)
+    node[pos=0.7, right]{\scriptsize Personality Vector};
+
+\end{tikzpicture}
+\end{document}

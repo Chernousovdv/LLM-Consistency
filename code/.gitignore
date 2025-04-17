@@ -12,4 +12,5 @@ __pycache__/
 venv/
 .idea/
 .vscode/
-
+results/
+analysis/

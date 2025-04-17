@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+
+% More detailed margin control
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+
+% Essential packages
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{lmodern}
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+
+
+% Compatibility for biblatex
+\usepackage{csquotes}
+
+% Load biblatex before cleveref
+\usepackage{biblatex}
+\addbibresource{draft_lib.bib}
+
+\usepackage{cleveref}
+
+% Define custom commands if not already defined
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+
+% Theorem environments
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+% Comments for co-authors (optional)
+\newcommand{\coauthorcomment}[2]{{\color{#1} \textbf{#2}}}
+
+\usepackage{xspace}
+\newcommand{\algname}[1]{{\sf  #1}\xspace}
+\newcommand{\algnamex}[1]{{\sf #1}\xspace}
+
+% Title and author information
+\title{Personality as Vector Space for Agent-Based Simulation}
+
+\author{
+  Danila Chernousov\\
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This research conceptualizes an agent's personality as a point in a vector space, where each dimension represents a distinct trait or behavioral tendency. This approach allows for selecting an appropriate subspace tailored to specific tasks, while disregarding irrelevant traits. The Big Five personality framework, often considered a basis set for human personality, serves as a reference point for our model. Expanding on this idea, we propose a more generalized method for profiling agents by combining orthogonal traits to generate diverse populations. In addition, incorporating a probability distribution can better mimic real-world personality variations. LLMs have demonstrated the ability to maintain consistent personalities, but it remains uncertain whether this consistency persists under alternative personality frameworks.
+
+\end{abstract}
+
+\paragraph{Keywords:} Artifical Intelligence, AI Agents, Large Language Model, Agent-Based Simulation, Agent Profiling .
+
+\section{Introduction}
+In recent years, large language models (LLMs) have demonstrated remarkable capabilities in simulating human-like behavior, raising interest in their potential for modeling artificial agents with distinct personalities. However, existing approaches often rely on rigid predefined personality types, limiting flexibility and adaptability in various applications, such as social simulations[\cite{park2024generativeagentsimulations1000}, \cite{park2023generativeagentsinteractivesimulacra}], virtual assistants, and economic simulations[\cite{Leng2024-qs}]. This research aims to develop a more flexible approach to defining agent personalities using a vector space representation. By treating personality as a point in a high-dimensional space, where each axis represents a distinct trait or behavioral tendency, we enable more granular and dynamic personality modeling.
+
+The key object of this research is the representation of an agent’s personality using LLMs. Personality, in psychological terms, is typically defined as a set of behavioral traits that influence how individuals interact with their environment [1]. Several frameworks exist for personality modeling, with the Big Five Personality Traits being one of the most widely accepted structures, and it has received significant attention in the field [\cite{john1999bigfive}]. Current research suggests that LLMs can exhibit consistent personalities when prompted correctly[\cite{serapiogarcía2023personalitytraitslargelanguage}, \cite{frisch2024llmagentsinteractionmeasuring}, \cite{klinkert2024drivinggenerativeagentspersonality}]. One possible explanation for the consistency of LLM-generated personalities in psychometric tests is the extensive body of research on personality traits that is likely present in their training data. However, in cases where behavioral data is scarce or nonexistent, such as niche psychological traits or hypothetical personality constructs, LLMs may struggle to generate consistent behaviors. It remains uncertain whether they maintain this consistency when modeling personality traits that lack well-documented psychological research. This raises concerns about the reliability of LLM-generated agents, particularly in simulations that require nuanced or underexplored personality dimensions.
+
+The primary challenge lies in ensuring consistency and coherence in agent behavior when personalities are defined using a mathematical basis. 
+
+Compared to existing methods, our approach offers several advantages. Unlike rule-based personality modeling, which requires extensive manual tuning, a vector-based model provides a systematic and scalable way to define personalities. Additionally, this method allows for smooth interpolation between personality types, enabling the creation of hybrid personalities that are difficult to define in categorical models. The scalability of this approach also allows for realistic population sampling by drawing from parametric probability distributions tuned to mimic real-world human personality distributions.
+
+This research contributes to the growing field of computational personality modeling by proposing a novel, mathematically grounded approach to agent personality definition. By combining vector-based representations with LLM capabilities, we aim to enhance the flexibility, scalability, and realism of artificial personality modeling in simulations and interactive AI systems.
+
+
+\printbibliography
+    
+\end{document}
