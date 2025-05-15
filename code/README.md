@@ -6,7 +6,7 @@
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/Chernousovdv/Personalized-AI-Agent.git
+git clone https://github.com/Chernousovdv/LLM-Consistency.git
 cd llm-personality-consistency
 ```
 
