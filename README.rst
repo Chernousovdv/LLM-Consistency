@@ -33,14 +33,4 @@ Link Review
 ===============================
 https://docs.google.com/document/d/1h7oPyyCVAQ_HOuKJVMfrfr0woq83kxSi1J2lcGdhX9I/edit?tab=t.0
 
-Research publications
-===============================
-1. TODO
 
-Presentations at conferences on the topic of research
-================================================
-1. TODO
-
-Software modules developed as part of the study
-======================================================
-1. TODO
